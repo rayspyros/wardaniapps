@@ -19,7 +19,7 @@ http_response_code($charge_result['http_code']);
 echo $charge_result['body'];
 
 function chargeAPI($api_url, $server_key, $request_body){
-    $curl_options == array(
+    $curl_options = array(
         CURLOPT_URL => $api_url,
         CURLOPT_RETURNTRANSFER => 1,
         CURLOPT_POST => 1,
@@ -32,7 +32,8 @@ function chargeAPI($api_url, $server_key, $request_body){
         ),
         CURLOPT_POSTFIELDS => $request_body
     );
-    curl_setopt_array($ch, $curl_options);
+    $ch = curl_init(); // Initialize the cURL session
+    curl_setopt_array($ch, $curl_options); // Set the cURL options
     $result = array(
         'body' => curl_exec($ch),
         'http_code' => curl_getinfo($ch, CURLINFO_HTTP_CODE),
